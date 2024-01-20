@@ -1,22 +1,35 @@
 'use client'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import HomeNavbar from '../Navbar/HomeNavbar'
+import Link from 'next/link';
+import { removeTodo } from './Redux/todoSlice';
 
 const ToDoList = () => {
 
     const lists = useSelector(state => state?.todolist);
+    const dispatch = useDispatch();
+
+    const deleteTodo = id => {
+        dispatch(removeTodo(id));
+    }
 
     return (
         <div>
             <HomeNavbar />
-            <div className='bg-yellow-200 max-w-[50%] mx-auto mt-10 p-4 rounded-sm'>
+            <div className='bg-yellow-200 max-w-[50%] mx-auto mt-10 p-4 rounded-sm flex gap-10'>
+                <div className='min-w-[12%] flex flex-col justify-start items-start gap-5'>
+                    <Link href='/Components/Todolist' className='w-full p-2 rounded-sm bg-red-500'>All Task</Link>
+                    <Link href='/Components/Todolist/AddTodo' className='bg-green-500 w-full p-2 rounded-sm focus:bg-red-500'>Add Task</Link>
+                </div>
                 <table className='w-full'>
                     <thead className='bg-red-500'>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>List</th>
-                        <th>Action</th>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>List</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {
@@ -26,8 +39,8 @@ const ToDoList = () => {
                                     <td>{item?.title}</td>
                                     <td>{item?.description}</td>
                                     <td className='flex justify-center items-center gap-5'>
-                                        <button className='bg-green-500 px-4 py-1 rounded-sm'>Edit</button>
-                                        <button className='bg-red-500 px-2 py-1 rounded-sm'>Remove</button>
+                                        <button className=''>Edit</button>
+                                        <button onClick={()=> deleteTodo(item?.id)} className=''>Remove</button>
                                     </td>
                                 </tr>
                             )

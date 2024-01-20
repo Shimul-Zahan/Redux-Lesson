@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux'
 
 const HomeNavbar = () => {
 
-    const data = useSelector(state => state?.favList?.length)
+    const data1 = useSelector(state => state?.favList?.length)
+    const data2 = useSelector(state => state?.todolist?.length)
     // console.log('home', );
 
     const menu = [
@@ -16,11 +17,12 @@ const HomeNavbar = () => {
         {
             name: 'Favourite List',
             route: '/Components/favourite',
-            total: data,
+            total: data1,
         },
         {
             name: 'To Do List',
             route: '/Components/Todolist',
+            total: data2,
         },
         {
             name: 'Login/Register',
